@@ -7,7 +7,7 @@ from reportlab.lib import colors
 # Router details
 router = {
     'device_type': 'alcatel_sros',
-    'host': '10.42.10.25',
+    'host': '10.42.10.41',
     'username': 'AliDoski',
     'password': 'Al!$osk!22',
 }
@@ -28,11 +28,10 @@ try:
     ospf_output = ssh_session.send_command("show router ospf interface detail")
 
     # Extract interface name and cfg Metric using regular expressions
-    interfaces = re.split(r'(?=Interface : )', ospf_output)  # Split by Interface
+    interfaces = re.split(r'(?=-{80,})', ospf_output)  # Split by a line of 80 or more hyphens
 
     # Extract interface names and cfg Metric
     data = [["Router Name", "Interface Name", "OSPF cfg Metric"]]
-    first_row = True
     for interface in interfaces:
         match = re.search(r'Interface : (.+)', interface)
         if match:
@@ -40,11 +39,7 @@ try:
             cfg_metric_match = re.search(r'Cfg Metric\s*:\s*(\d+)', interface)
             if cfg_metric_match:
                 cfg_metric = cfg_metric_match.group(1).strip()
-                if first_row:
-                    data.append([router_name, interface_name, cfg_metric])
-                    first_row = False
-                else:
-                    data.append(["", interface_name, cfg_metric])
+                data.append([router_name, interface_name, cfg_metric])
 
     # Create a PDF file
     pdf_file = "ospf_interface_details.pdf"
