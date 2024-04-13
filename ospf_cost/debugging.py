@@ -10,9 +10,17 @@ router = {
 
 # Connect to the router
 try:
+    print("Connecting to the router...")
     ssh_session = ConnectHandler(**router)
+    print("Connection successful.")
+
     # Send command and get output
-    output = ssh_session.send_command("show router interface")
+    print("Sending command 'show system information'...")
+    output = ssh_session.send_command("show system information")
+    print("Command executed successfully.")
+
+    # Print command output
+    print("Command output:")
     print(output)
 
 except Exception as e:
@@ -20,4 +28,6 @@ except Exception as e:
 
 finally:
     # Close the SSH session
+    print("Closing SSH session...")
     ssh_session.disconnect()
+    print("SSH session closed.")
