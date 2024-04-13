@@ -6,6 +6,8 @@ router = {
     'host': '10.42.10.37',
     'username': 'AliDoski',
     'password': 'Al!$osk!22',
+    'verbose': True  # Set verbose to True to increase debugging output
+
 }
 
 # Connect to the router
