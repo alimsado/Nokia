@@ -1,0 +1,4 @@
+
+In cron, the timing is based on the system's local time, and it does not track when you update the crontab file. When you schedule a task to run every 6 hours, for example, cron will calculate the time based on the system clock and start the task accordingly.
+
+So, if you schedule a task to run every 6 hours, it will run at 00:00, 06:00, 12:00, and 18:00 in your local time, regardless of when you update the crontab file. Once you've set up the cron job, cron handles the timing independently of any subsequent changes to the crontab file.
